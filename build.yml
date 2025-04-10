@@ -1,0 +1,16 @@
+# pypyr automation pipeline for building all necessary files and install them
+---
+
+steps:
+- name: pypyr.steps.cmd
+  comment: check if credientials are present in local podmand vault
+  in:
+    cmd: "podman secret exists paperless_pgresql_pass"
+
+- name: pypyr.steps.cmd
+  comment: parse templates
+  in:
+    cmd:
+    - jinja2 ./templates/paperless-concheck.j2 .env > ./dist/paperless-concheck
+    - jinja2 ./templates/systemd/paperless.container.j2 .env ./dist/paperless.container
+    - jinja2 ./templates/systemd/paperless-gotenberg.container.j2 .env ./dist/paperless-gotenberg.container
