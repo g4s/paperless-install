@@ -50,6 +50,11 @@ if [[ $(command -v podman) ]];  then
         -v paperless-media:/usr/src/paperless/media \
         -v "${PAPERLESS_CONSUME}":/usr/src/paperless/consume \
         -v "${PAPERLESS_EXPORT}":/usr/src/paperless/export \
+        -e PAPERLESS_REDIS=redis://broker:637 \
+        -e PAPERLESS_DBHOST=db \
+        -e PAPERLESS_TIKA_ENABLED=1 \
+        -e PAPERLESS_TIKA_GOTENBERG_ENDPOINT=http://gotenberg:3000 \
+        -e PAPERLESS_TIKA_ENDPOINT=http://tika:9998 \
         ghcr.io/paperless-ngx/paperless-ngx:latest
 
     podman run --pod paperless -dt \
