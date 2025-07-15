@@ -12,6 +12,13 @@ if [[ $(command -v podman) ]];  then
     podman volume create paperless-redis
     podman volume create paperless-database
     podman volume create paperless-ai
+    podman volume create paperless-data
+    podman volume create paperless-media
+
+    read -rsp "PostgreSQL database password: " DB_PASSWORD
+    echo "${DB_PASSWORD}" | podman secrete create paperless-postgress -
+    read -p "Path to consume folder: " PAPERLESS_CONSUME
+    read -p "Path to export folder: " PAPERLESS_EXPORT
 
     podman run --pod paperless -dt \
         --replace --restart=unless-stopped \
@@ -34,6 +41,16 @@ if [[ $(command -v podman) ]];  then
         -e POSTGRES_USER=paperless \
         --secret=paperless-postgress-pw,type=env,target=POSTGRES_PASSWORD \
         docker.io/library/postgres:17
+
+    podman run --pod paperless -dt \
+        --replace --restart=unless-stopped \
+        --label=app=paperless \
+        --name wenbserver \
+        -v paperless-data:/usr/src/paperless/data \
+        -v paperless-media:/usr/src/paperless/media \
+        -v "${PAPERLESS_CONSUME}":/usr/src/paperless/consume \
+        -v "${PAPERLESS_EXPORT}":/usr/src/paperless/export \
+        ghcr.io/paperless-ngx/paperless-ngx:latest
 
     podman run --pod paperless -dt \
         --replace --label=app=paperless \
