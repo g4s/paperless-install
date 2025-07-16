@@ -1,3 +1,7 @@
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+
+---
+
 # paperless install
 This gh-project provide two solid methods for installing paperless and some 
 additions like paperless-ai to an application-host. The methods are:
