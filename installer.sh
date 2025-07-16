@@ -20,6 +20,14 @@ if [[ $(command -v podman) ]];  then
     read -p "Path to consume folder: " PAPERLESS_CONSUME
     read -p "Path to export folder: " PAPERLESS_EXPORT
 
+    if [[ ! -d "${PAPERLESS_CONSUME}" ]]; then
+        mkdir -p "${PAPERLESS_CONSUME}"
+    fi
+
+    if [[ ! -d "${PAPERLESS_EXPORT}" ]]; then
+        mkdir -p "${PAPERLESS_EXPORT}"
+    fi
+
     podman run --pod paperless -dt \
         --replace --restart=unless-stopped \
         --label=app=paperless \
