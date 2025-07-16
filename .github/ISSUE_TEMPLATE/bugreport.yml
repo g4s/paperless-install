@@ -23,7 +23,7 @@ body:
   attributes:
     label: os-info
     description: Plese proide information about your OS/distribution
-    value: ""
+    value: "your os information goes here"
     validations:
       required: true
 - type: textarea
@@ -31,7 +31,7 @@ body:
   attributes:
     label: pod-info
     description: Please provide your podman version
-    value: ""
+    value: "your podman information goes here"
     validations:
       required: true
 - type: textarea
@@ -39,6 +39,6 @@ body:
   attributes:
     label: report
     description: plese describe the problem, also include your expectations
-    value: ""
+    value: "your bug report goes here"
     validations:
       required: true
