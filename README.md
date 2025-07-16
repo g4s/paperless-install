@@ -55,3 +55,8 @@ like this:
 A full list of all ansible vars is provided inside [ansible/README.md](ansible/README.md).
 The ansible play is tested against Fedora/Alma/RHEL other distribution will 
 maybe work, but are not tested.
+
+## Bug reporting
+If you find a bug, you can open an issue on github. Also as an shortcut, you find
+at the begin of this document a badge to directly open an issue. It's mandatory
+to fill out the issue mask with proper values.
