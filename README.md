@@ -56,7 +56,7 @@ A full list of all ansible vars is provided inside [ansible/README.md](ansible/R
 The ansible play is tested against Fedora/Alma/RHEL other distribution will 
 maybe work, but are not tested.
 
-## Bug reporting
+## Bug reporting [![GitHub issues](https://img.shields.io/github/issues/g4s/paperless-install)](https://github.com/g4s/paperless-install/issues)
 If you find a bug, you can open an issue on github. Also as an shortcut, you find
 at the begin of this document a badge to directly open an issue. It's mandatory
 to fill out the issue mask with proper values.
