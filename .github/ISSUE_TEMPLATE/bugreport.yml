@@ -16,8 +16,6 @@ body:
     - standalone with script (default)
     - ansible + quadlets
     default: 0
-    validation:
-      required: true
 - type: textarea
   id: os-info
   attributes:
