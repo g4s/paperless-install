@@ -33,3 +33,20 @@ The ansible based deploy is far more complicated, but integrates well if you
 use ansible as an IaC-tool for your hole lab. Also it will not produce a
 standalone pod with containers - it will produced quadlets, a way to manage
 container with systemd.
+
+For integrating this repo into your IaC, it is necessary to place the file
+structure under [ansible/](./ansible) inside your Iac-repo, cause I not
+encapsulated the code as ansible-role. For things like this, I personally
+highly recommend tools like [gilt](https://github.com/retr0h/gilt). Inside
+your playbook you should refference the tasks something similar, like this
+
+```yaml
+ - hosts: applicationhost
+   vars:
+     paperless_ai_support: true
+     paperless_authentik_auth: true
+     paperless_authentik_url: "https://auth.example.com"
+   tasks:
+     - ansible.builtin.inlclude_tasks:
+         file: services/paperless.yaml
+```
