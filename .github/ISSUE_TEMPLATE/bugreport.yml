@@ -3,7 +3,18 @@ description: Submit a bug
 title: "[BUG]: "
 labels: [ "bug" ]
 body:
-  - type: markdown
-      attributes:
-        value: |
-          Thaks for submitting a bug!
+- type: markdown
+  attributes:
+    value: |
+      Thaks for submitting a bug!
+- type: dropdown
+  id: deploytype
+  attributes:
+    label: Method
+    descrtiption: Which deploy method do you use
+    options:
+    - standalone with script (default)
+    - ansible + quadlets
+    default: 0
+    validations:
+      required: true
