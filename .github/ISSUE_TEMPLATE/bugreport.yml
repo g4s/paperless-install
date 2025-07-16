@@ -4,5 +4,6 @@ title: "[BUG]: "
 labels: [ "bug" ]
 body:
   - type: markdown
-      value: |
-        Thaks for submitting a bug!
+      attributes:
+        value: |
+          Thaks for submitting a bug!
