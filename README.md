@@ -49,5 +49,5 @@ like this:
      paperless_authentik_url: "https://auth.example.com"
    tasks:
      - ansible.builtin.inlclude_tasks:
-         file: services/paperless.yaml
+         file: "services/paperless.yaml"
 ```
