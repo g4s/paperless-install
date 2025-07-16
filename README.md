@@ -11,6 +11,9 @@ additions like paperless-ai to an application-host. The methods are:
   * collection of templates and files for deploying with ansible as quadlets
 
 Both methods require, that you installed podman on the deployment host. The
-quadlet deployment also requires that the host uses systemd.
+quadlet deployment also requires that the host uses systemd. If you will use
+the provided container of paperless-ai you also need an OpenAPI compliant
+AI-service (subscription) or local OpenAPI compliant service. paperless-ai
+will not provide models. 
 
 ## Deploy standaline with script
