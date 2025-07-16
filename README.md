@@ -2,7 +2,7 @@
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 ---
 
-# paperless install [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=963338797)
+# paperless install [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=963338797) [![GitHub issues](https://img.shields.io/github/issues/g4s/paperless-intall)](https://github.com/g4s/paperless-install/issues)
 This gh-project provide two solid methods for installing paperless and some 
 additions like paperless-ai to an application-host. The methods are:
 
@@ -51,3 +51,7 @@ like this:
      - ansible.builtin.inlclude_tasks:
          file: "services/paperless.yaml"
 ```
+
+A full list of all ansible vars is provided inside [ansible/README.md](ansible/README.md).
+The ansible play is tested against Fedora/Alma/RHEL other distribution will 
+maybe work, but are not tested.
