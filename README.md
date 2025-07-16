@@ -2,7 +2,7 @@
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 ---
 
-# paperless install
+# paperless install [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=963338797)
 This gh-project provide two solid methods for installing paperless and some 
 additions like paperless-ai to an application-host. The methods are:
 
@@ -33,6 +33,3 @@ The ansible based deploy is far more complicated, but integrates well if you
 use ansible as an IaC-tool for your hole lab. Also it will not produce a
 standalone pod with containers - it will produced quadlets, a way to manage
 container with systemd.
-
----
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=963338797)
