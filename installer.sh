@@ -16,7 +16,7 @@ if [[ $(command -v podman) ]];  then
     podman volume create paperless-media
 
     read -rsp "PostgreSQL database password: " DB_PASSWORD
-    echo "${DB_PASSWORD}" | podman secrete create paperless-postgress -
+    echo "${DB_PASSWORD}" | podman secrete create paperless-postgres -
     read -p "Path to consume folder: " PAPERLESS_CONSUME
     read -p "Path to export folder: " PAPERLESS_EXPORT
 
@@ -39,7 +39,7 @@ if [[ $(command -v podman) ]];  then
         -v paperless-database:/var/lib/postgresql/data \
         -e POSTGRES_DB=paperless \
         -e POSTGRES_USER=paperless \
-        --secret=paperless-postgress-pw,type=env,target=POSTGRES_PASSWORD \
+        --secret=paperless-postgres-pw,type=env,target=POSTGRES_PASSWORD \
         docker.io/library/postgres:17
 
     podman run --pod paperless -dt \
@@ -52,6 +52,9 @@ if [[ $(command -v podman) ]];  then
         -v "${PAPERLESS_EXPORT}":/usr/src/paperless/export \
         -e PAPERLESS_REDIS=redis://broker:637 \
         -e PAPERLESS_DBHOST=db \
+        -e PAPERLESS_DBUSER=paperless \
+        --secret=paperless-postgres-pw,type=env,target=PAPERLESS_DBPASS \
+        -e PAPERLESS_DBNAME=paperless \
         -e PAPERLESS_TIKA_ENABLED=1 \
         -e PAPERLESS_TIKA_GOTENBERG_ENDPOINT=http://gotenberg:3000 \
         -e PAPERLESS_TIKA_ENDPOINT=http://tika:9998 \
