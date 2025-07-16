@@ -45,6 +45,12 @@ Environment=PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS=true
 [Service]
 Restart=always
 RestartSec=10
+ExecStartPre=/usr/bin/trivy image \
+    --severity HIGH,CRITICAL \
+    --ignore-status will_not_fix \
+    --ignorefile /etc/paperless/trivyignore.yaml \
+    --exit-code 1 \                                     # comment this line, when failures acceptable  
+    ghcr.io/paperless-ngx/paperless-ngx:latest
 
 [Install]
 WantedBy=default.target multi-user.target

@@ -1,0 +1,6 @@
+vulnerabilities:
+- id: CVE-2023-31484
+  statement: accepted risk
+
+- id: CVE-2023-2953
+  statement: LDAP(s) not in use - accepted risk
