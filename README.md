@@ -1,7 +1,6 @@
-# paperless-quadlet
-single collection for installing paperless as a collection of quadlets.
-(Optional in an distributed installation.)
+# paperless install
+This gh-project provide two solid methods for installing paperless and some 
+additions like paperless-ai to an application-host. The methods are:
 
-## Installation / systemd unit generation
-You need poetry present on your system, which wil install the necessary 
-dependencies.
+  * installing standalone als collection of containern inside podman pod
+  * collection of templates and files for deploying with ansible as quadlets
