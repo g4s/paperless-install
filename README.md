@@ -2,7 +2,7 @@
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 ---
 
-# paperless install [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=963338797) [![GitHub issues](https://img.shields.io/github/issues/g4s/paperless-intall)](https://github.com/g4s/paperless-install/issues)
+# paperless install [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=963338797) [![GitHub issues](https://img.shields.io/github/issues/g4s/paperless-install)](https://github.com/g4s/paperless-install/issues)
 This gh-project provide two solid methods for installing paperless and some 
 additions like paperless-ai to an application-host. The methods are:
 
