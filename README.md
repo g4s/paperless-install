@@ -28,7 +28,11 @@ All optional parametes will be interactive asked. Secrets will use the podman
 internal secret vault.
 
 ## Deploy quadlets with ansible [![Ansible](https://img.shields.io/badge/ansible-%231A1918.svg?style=for-the-badge&logo=ansible&logoColor=white)](https://docs.ansible.com)
+
 The ansible based deploy is far more complicated, but integrates well if you
-use ansible as an IaC-tool for your hole lab. The tasks 
+use ansible as an IaC-tool for your hole lab. Also it will not produce a
+standalone pod with containers - it will produced quadlets, a way to manage
+container with systemd.
+
 ---
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=963338797)
