@@ -18,3 +18,27 @@ body:
     default: 0
     validations:
       required: true
+- type: textarea
+  id: os-info
+  attributes:
+    label: os-info
+    description: Plese proide information about your OS/distribution
+    value: ""
+    validations:
+      required: true
+- type: textarea
+  id: pod-info
+  attributes:
+    label: pod-info
+    description: Please provide your podman version
+    value: ""
+    validations:
+      required: true
+- type: textarea
+  id: report
+  attributes:
+    label: report
+    description: plese describe the problem, also include your expectations
+    value: ""
+    validations:
+      required: true
