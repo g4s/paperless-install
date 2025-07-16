@@ -3,7 +3,11 @@
 ---
 
 # paperless install [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=963338797) [![GitHub issues](https://img.shields.io/github/issues/g4s/paperless-install)](https://github.com/g4s/paperless-install/issues)
-This gh-project provide two solid methods for installing paperless and some 
+Prervious I described in a blog-post (German) how to simplified deploy 
+paperless-ngx with some nice twists for daily document management. - This
+inlcudes Additions like connecting paperless-ai or authentification with
+Authentik. As an result this repo with code was born: simply to hold all things
+together. It will provide two solid methods for installing paperless and some 
 additions like paperless-ai to an application-host. The methods are:
 
   * installing standalone als collection of containern inside podman pod
