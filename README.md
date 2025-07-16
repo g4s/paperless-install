@@ -37,8 +37,9 @@ container with systemd.
 For integrating this repo into your IaC, it is necessary to place the file
 structure under [ansible/](./ansible) inside your Iac-repo, cause I not
 encapsulated the code as ansible-role. For things like this, I personally
-highly recommend tools like [gilt](https://github.com/retr0h/gilt). Inside
-your playbook you should refference the tasks something similar, like this
+highly recommend tools like [gilt - the git layering tool](https://github.com/retr0h/gilt).
+Inside your playbook you should refference the tasks something similar,
+like this:
 
 ```yaml
  - hosts: applicationhost
