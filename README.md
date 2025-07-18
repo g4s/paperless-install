@@ -28,6 +28,10 @@ will not provide models.
   * paperless-ai
   * stirling PDF
 
+paperless-ai ist zusätzlich auf "lokale" LLMs oder externe Services angewiesen.
+Zusätzlich empfiehlt es sich an dieser Stelle n8n als LowCode Automatisierungs-
+Platform zu deployen.
+
 ## Deploy standalone with script
 This is the default method for deploying paperless-ngx. The script aims mostly
 the original docker-compose file, but with some twists. The deploy process is
