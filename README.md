@@ -44,7 +44,7 @@ Ports in der Zone geöffnet. Im Rahmen eines produktiven Deployments sollte
 allerdings noch ein Reverseproxy vor den Pod geschaltet werden.
 
 Die Deployments in diesem Repo unterstützen auch die Anbindung des Pods via
-tsproxy an ein tailnet.
+[tsdproxy](https://almeidapaulopt.github.io/tsdproxy/) an ein tailnet.
 
 ## Deploy standalone with script
 This is the default method for deploying paperless-ngx. The script aims mostly
