@@ -40,7 +40,8 @@ Platform zu deployen.
 | 8002/tcp | 8080/tcp |              |
 
 Sollte auf dem System ein firewalld laufen, so werden auch die entsprechenden
-Ports in der Zone geöffnet.
+Ports in der Zone geöffnet. Im Rahmen eines produktiven Deployments sollte 
+allerdings noch ein Reverseproxy vor den Pod geschaltet werden.
 
 ## Deploy standalone with script
 This is the default method for deploying paperless-ngx. The script aims mostly
