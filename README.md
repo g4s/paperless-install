@@ -32,6 +32,16 @@ paperless-ai ist zusätzlich auf "lokale" LLMs oder externe Services angewiesen.
 Zusätzlich empfiehlt es sich an dieser Stelle n8n als LowCode Automatisierungs-
 Platform zu deployen.
 
+### exposed Ports
+| extern   | intern   | Beschreibung |
+|----------|----------|--------------|
+| 8000/tcp | 8000/tcp |              |
+| 8001/tcp | 3000/tcp |              |
+| 8002/tcp | 8080/tcp |              |
+
+Sollte auf dem System ein firewalld laufen, so werden auch die entsprechenden
+Ports in der Zone geöffnet.
+
 ## Deploy standalone with script
 This is the default method for deploying paperless-ngx. The script aims mostly
 the original docker-compose file, but with some twists. The deploy process is
