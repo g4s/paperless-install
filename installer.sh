@@ -93,4 +93,12 @@ if [[ $(command -v podman) ]];  then
         -e DISABLE_ADDITIONAL_FESTURES=true \
         -e LANGS=de_DE \
         docker.stirlingpdf.com/stirlingtools/stirling-pdf:latest
+
+    # open necessary ports in firewalld if running
+    if [[ "$(firewall-cmd --state)" == "running" ]]; then
+        firewall-cmd --zone=public --add-port=8000/tcp --permanent
+        firewall-cmd --zone=public --add-port=8001/tcp --permanent
+        firewall-cmd --zone=public --add-port=8002/tcp --permanent
+        firewall-cmd --reload
+    fi
 fi
