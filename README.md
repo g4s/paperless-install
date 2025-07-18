@@ -19,6 +19,15 @@ the provided container of paperless-ai you also need an OpenAPI compliant
 AI-service (subscription) or local OpenAPI compliant service. paperless-ai
 will not provide models. 
 
+## Übersicht der Container und Services
+
+  * paperless-ngx
+    * postgresql
+    * gotenberg
+    * tika
+  * paperless-ai
+  * stirling PDF
+
 ## Deploy standalone with script
 This is the default method for deploying paperless-ngx. The script aims mostly
 the original docker-compose file, but with some twists. The deploy process is
