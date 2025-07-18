@@ -7,7 +7,8 @@ if [[ $(command -v podman) ]];  then
         --network bridge \
         --name=paperless \
         --publish 8000:8000 \
-        --publish 8001:3000
+        --publish 8001:3000 \
+        --publish 8002:8080 
 
     podman volume create paperless-redis
     podman volume create paperless-database
