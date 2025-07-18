@@ -14,6 +14,11 @@ if [[ $(command -v podman) ]];  then
     podman volume create paperless-ai
     podman volume create paperless-data
     podman volume create paperless-media
+    podman volume create stirling-training
+    podman volume create stirling-conf
+    podman volume create stirling-custom
+    podman volume create stirling-logs
+    podman volume create sirling-pipelines
 
     read -rsp "PostgreSQL database password: " DB_PASSWORD
     echo "${DB_PASSWORD}" | podman secrete create paperless-postgres -
@@ -73,5 +78,18 @@ if [[ $(command -v podman) ]];  then
         --restart=unless-stopped \
         --name paperless-ai \
         -v paperless-ai:/app/data \
-        docker.io/clusterzx/paperless-ai
+        docker.io/clusterzx/paperless-ai:latest
+
+    podman run --pod paperless -dt \
+        --replace --label=app=paperless \
+        --restart=unless-stopped \
+        --name stirlingpdf \
+        -v stirling-training:/usr/share/tessdata \
+        -v stirling-conf:/configs \
+        -v stirling-custom:/customFiles \
+        -v stirling-logs:/logs \
+        -v stirling-pipelines:/pipeline \
+        -e DISABLE_ADDITIONAL_FESTURES=true \
+        -e LANGS=de_DE \
+        docker.stirlingpdf.com/stirlingtools/stirling-pdf:latest
 fi
