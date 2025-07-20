@@ -26,7 +26,8 @@ will not provide models.
     * gotenberg
     * tika
   * paperless-ai
-  * stirling PDF
+  * stirlingPDF
+  * DocuSeal
 
 paperless-ai ist zusätzlich auf "lokale" LLMs oder externe Services angewiesen.
 Zusätzlich empfiehlt es sich an dieser Stelle n8n als LowCode Automatisierungs-
