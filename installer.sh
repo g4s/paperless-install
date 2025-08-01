@@ -15,8 +15,9 @@ if [[ $(command -v podman) ]];  then
         --network bridge \
         --name=paperless \
         --publish 8000:8000 \
-        --publish 8001:3000 \
+        --publish 8001:3030 \
         --publish 8002:8080 \
+        --publish 8003:3000 \
         --label=tsdproxy.enable=true
 
     # create volumes
@@ -30,6 +31,7 @@ if [[ $(command -v podman) ]];  then
     podman volume create stirling-custom
     podman volume create stirling-logs
     podman volume create sirling-pipelines
+    podman volume create docuseal-data
 
     read -rsp "PostgreSQL database password: " DB_PASSWORD
     echo "${DB_PASSWORD}" | podman secrete create paperless-postgres -
@@ -72,8 +74,9 @@ if [[ $(command -v podman) ]];  then
         --replace --restart=unless-stopped \
         --label=app=paperless \
         --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP} \
-        --name \
-        gotenberg docker.io/gotenberg/gotenberg:8.20
+        --name gotenberg \
+        gotenberg docker.io/gotenberg/gotenberg:8.20 \
+        gotenberg --api-port=3030
 
     podman run --pod paperless -dt \
         --replace --restart=unless-stopped \
@@ -112,7 +115,7 @@ if [[ $(command -v podman) ]];  then
         -e USERMAP_UID=$(id -u) \
         -e USERMAP_GID=$(id -g) \ 
         -e PAPERLESS_TIKA_ENABLED=1 \
-        -e PAPERLESS_TIKA_GOTENBERG_ENDPOINT=http://gotenberg:3000 \
+        -e PAPERLESS_TIKA_GOTENBERG_ENDPOINT=http://gotenberg:3030 \
         -e PAPERLESS_TIKA_ENDPOINT=http://tika:9998 \
         ghcr.io/paperless-ngx/paperless-ngx:latest
 
@@ -140,12 +143,22 @@ if [[ $(command -v podman) ]];  then
         docker.stirlingpdf.com/stirlingtools/stirling-pdf:latest
 
     # adding DocuSeal to techstack
+    # https://www.docuseal.com/docs/configuring-docuseal-via-environment-variables
+    # https://www.docuseal.com/docs/configuring-saml-with-authentic
+    podman run --pod paperless -dt \
+        --replace --label=app=paperless \
+        --label=dev.dozzle.group="${PAPERLESS_DOZZLE_GROUP}" \
+        --restart=unless-stopped \
+        -v docuseal-data:/data \
+        --name docuseal \
+        docker.io/docuseal/docuseal
 
     # open necessary ports in firewalld if running
     if [[ "$(firewall-cmd --state)" == "running" ]]; then
         firewall-cmd --zone=public --add-port=8000/tcp --permanent
         firewall-cmd --zone=public --add-port=8001/tcp --permanent
         firewall-cmd --zone=public --add-port=8002/tcp --permanent
+        firewall-cmd --zone=public --add-port=8003/tcp --permanent
         firewall-cmd --reload
     fi
 fi
