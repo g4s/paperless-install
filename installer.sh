@@ -33,8 +33,6 @@ if [[ $(command -v podman) ]];  then
 
     read -rsp "PostgreSQL database password: " DB_PASSWORD
     echo "${DB_PASSWORD}" | podman secrete create paperless-postgres -
-    read -p "Path to consume folder: " PAPERLESS_CONSUME
-    read -p "Path to export folder: " PAPERLESS_EXPORT
 
     if [[ $(podman secret exists paperless_secret_token) -ne 0]]; then
         echo "create secret token for paperless with openSSL"
@@ -42,12 +40,18 @@ if [[ $(command -v podman) ]];  then
         echo "created token paperless_secret_token"
     fi
 
+    read -rsp "Enter paperless-ngx password: " PAPERLESS_ADMIN_PWD
+
     if [[ ! -d "${PAPERLESS_CONSUME}" ]]; then
         mkdir -p "${PAPERLESS_CONSUME}"
     fi
 
     if [[ ! -d "${PAPERLESS_EXPORT}" ]]; then
         mkdir -p "${PAPERLESS_EXPORT}"
+    fi
+
+    if [[ ! -z $PAPERLESS_TIME_ZONE ]]; then
+        PAPERLESS_TIME_ZONE=$(timedatectl show | grep Timezone | cut -d "=" -f2)
     fi
 
     ####
@@ -97,6 +101,8 @@ if [[ $(command -v podman) ]];  then
         -e PAPERLESS_URL=${PAPERLESS_URL:-""} \
         -e PAPERLESS_ADMIN_USER="${PAPERLESS_ADMIN_USER:-admin}" \
         -e PAPERLESS_AMDIN_PASSWORD="${PAPERLESS_ADMIN_PWD}" \
+        -e PAPERLESS_ACCOUNT_ALLOW_SIGNUPS=False \
+        -e PAPERLESS_TIME_ZONE="${PAPERLESS_TIME_ZONE}" \
         -e PAPERLESS_TIKA_ENABLED=1 \
         -e PAPERLESS_TIKA_GOTENBERG_ENDPOINT=http://gotenberg:3000 \
         -e PAPERLESS_TIKA_ENDPOINT=http://tika:9998 \
