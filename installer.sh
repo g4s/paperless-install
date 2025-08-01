@@ -54,6 +54,11 @@ if [[ $(command -v podman) ]];  then
         PAPERLESS_TIME_ZONE=$(timedatectl show | grep Timezone | cut -d "=" -f2)
     fi
 
+    if [[ ! -z $PAPERLESS_SCRIPTS ]]; then
+        PAPERLESS_SCRIPTS="$(pwd)/scripts"
+        mkdir -p $(pwd)/scripts
+    fi
+
     ####
     # spawn container
     podman run --pod paperless -dt \
