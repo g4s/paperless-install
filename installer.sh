@@ -1,8 +1,11 @@
 #! /bin/bash
 
 if [[ $(command -v podman) ]];  then
+    # loading configuration parameter
+    # Parameter should be prefixed with PAPERLESS_
     source /etc/sysconfig/paperless
 
+    # create pod
     podman pod create --replace \
         --restart=unless-stopped \
         --label=app=paperless \
@@ -14,6 +17,7 @@ if [[ $(command -v podman) ]];  then
         --publish 8002:8080 \
         --label=tsdproxy.enable=true
 
+    # create volumes
     podman volume create paperless-redis
     podman volume create paperless-database
     podman volume create paperless-ai
