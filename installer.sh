@@ -104,7 +104,7 @@ if [[ $(command -v podman) ]];  then
         -e PAPERLESS_ACCOUNT_ALLOW_SIGNUPS=False \
         -e PAPERLESS_TIME_ZONE="${PAPERLESS_TIME_ZONE}" \
         -e USERMAP_UID=$(id -u) \
-        -e USERMAP_GID=$(id -g) \
+        -e USERMAP_GID=$(id -g) \ 
         -e PAPERLESS_TIKA_ENABLED=1 \
         -e PAPERLESS_TIKA_GOTENBERG_ENDPOINT=http://gotenberg:3000 \
         -e PAPERLESS_TIKA_ENDPOINT=http://tika:9998 \
