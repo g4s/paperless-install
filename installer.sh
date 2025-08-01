@@ -3,13 +3,15 @@
 if [[ $(command -v podman) ]];  then
     # loading configuration parameter
     # Parameter should be prefixed with PAPERLESS_
-    source /etc/sysconfig/paperless
+    if [[ -f /etc/sysconfig/paperless ]]; then
+        source /etc/sysconfig/paperless
+    fi
 
     # create pod
     podman pod create --replace \
         --restart=unless-stopped \
         --label=app=paperless \
-        --label=dev.dozzle.group=paperless \
+        --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP} \
         --network bridge \
         --name=paperless \
         --publish 8000:8000 \
