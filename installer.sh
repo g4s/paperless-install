@@ -93,6 +93,8 @@ if [[ $(command -v podman) ]];  then
         --secret=paperless-postgres-pw,type=env,target=PAPERLESS_DBPASS \
         -e PAPERLESS_DBNAME=paperless \
         -e PAPERLESS_EMAIL_PARSE_DEFAULT_LAYOUT=2 \
+        --secret=paperless_secret_token,type=env,target=PAPERLESS_SECRET_KEY \
+        -e PAPERLESS_URL=${PAPERLESS_URL:-""}
         -e PAPERLESS_TIKA_ENABLED=1 \
         -e PAPERLESS_TIKA_GOTENBERG_ENDPOINT=http://gotenberg:3000 \
         -e PAPERLESS_TIKA_ENDPOINT=http://tika:9998 \
