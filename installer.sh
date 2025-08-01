@@ -44,24 +44,26 @@ if [[ $(command -v podman) ]];  then
         mkdir -p "${PAPERLESS_EXPORT}"
     fi
 
+    ####
+    # spawn container
     podman run --pod paperless -dt \
         --replace --restart=unless-stopped \
         --label=app=paperless \
-        --label=dev.dozzle.group=paperless \
+        --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP} \
         --name tika \
         docker.io/apache/tika:latest
 
     podman run --pod paperless -dt \
         --replace --restart=unless-stopped \
         --label=app=paperless \
-        --label=dev.dozzle.group=paperless \
+        --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP} \
         --name \
         gotenberg docker.io/gotenberg/gotenberg:8.20
 
     podman run --pod paperless -dt \
         --replace --restart=unless-stopped \
         --label=app=paperless \
-        --label=dev.dozzle.group=paperless \
+        --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP} \
         --name db \
         -v paperless-database:/var/lib/postgresql/data \
         -e POSTGRES_DB=paperless \
@@ -72,7 +74,7 @@ if [[ $(command -v podman) ]];  then
     podman run --pod paperless -dt \
         --replace --restart=unless-stopped \
         --label=app=paperless \
-        --label=dev.dozzle.group=paperless \
+        --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP}s \
         --name wenbserver \
         -v paperless-data:/usr/src/paperless/data \
         -v paperless-media:/usr/src/paperless/media \
@@ -90,7 +92,7 @@ if [[ $(command -v podman) ]];  then
 
     podman run --pod paperless -dt \
         --replace --label=app=paperless \
-        --label=dev.dozzle.group=paperless \
+        --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP} \
         --restart=unless-stopped \
         --name paperless-ai \
         -v paperless-ai:/app/data \
@@ -98,7 +100,7 @@ if [[ $(command -v podman) ]];  then
 
     podman run --pod paperless -dt \
         --replace --label=app=paperless \
-        --label=dev.dozzle.group=paperless \
+        --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP} \
         --restart=unless-stopped \
         --name stirlingpdf \
         -v stirling-training:/usr/share/tessdata \
