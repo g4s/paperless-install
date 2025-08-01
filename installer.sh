@@ -80,7 +80,7 @@ if [[ $(command -v podman) ]];  then
     podman run --pod paperless -dt \
         --replace --restart=unless-stopped \
         --label=app=paperless \
-        --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP}s \
+        --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP} \
         --name wenbserver \
         -v paperless-data:/usr/src/paperless/data \
         -v paperless-media:/usr/src/paperless/media \
@@ -94,7 +94,9 @@ if [[ $(command -v podman) ]];  then
         -e PAPERLESS_DBNAME=paperless \
         -e PAPERLESS_EMAIL_PARSE_DEFAULT_LAYOUT=2 \
         --secret=paperless_secret_token,type=env,target=PAPERLESS_SECRET_KEY \
-        -e PAPERLESS_URL=${PAPERLESS_URL:-""}
+        -e PAPERLESS_URL=${PAPERLESS_URL:-""} \
+        -e PAPERLESS_ADMIN_USER="${PAPERLESS_ADMIN_USER:-admin}" \
+        -e PAPERLESS_AMDIN_PASSWORD="${PAPERLESS_ADMIN_PWD}" \
         -e PAPERLESS_TIKA_ENABLED=1 \
         -e PAPERLESS_TIKA_GOTENBERG_ENDPOINT=http://gotenberg:3000 \
         -e PAPERLESS_TIKA_ENDPOINT=http://tika:9998 \
