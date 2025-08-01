@@ -4,6 +4,7 @@ if [[ $(command -v podman) ]];  then
     podman pod create --replace \
         --restart=unless-stopped \
         --label=app=paperless \
+        --label=dev.dozzle.group=paperless \
         --network bridge \
         --name=paperless \
         --publish 8000:8000 \
@@ -38,18 +39,21 @@ if [[ $(command -v podman) ]];  then
     podman run --pod paperless -dt \
         --replace --restart=unless-stopped \
         --label=app=paperless \
+        --label=dev.dozzle.group=paperless \
         --name tika \
         docker.io/apache/tika:latest
 
     podman run --pod paperless -dt \
         --replace --restart=unless-stopped \
         --label=app=paperless \
+        --label=dev.dozzle.group=paperless \
         --name \
         gotenberg docker.io/gotenberg/gotenberg:8.20
 
     podman run --pod paperless -dt \
         --replace --restart=unless-stopped \
         --label=app=paperless \
+        --label=dev.dozzle.group=paperless \
         --name db \
         -v paperless-database:/var/lib/postgresql/data \
         -e POSTGRES_DB=paperless \
@@ -60,6 +64,7 @@ if [[ $(command -v podman) ]];  then
     podman run --pod paperless -dt \
         --replace --restart=unless-stopped \
         --label=app=paperless \
+        --label=dev.dozzle.group=paperless \
         --name wenbserver \
         -v paperless-data:/usr/src/paperless/data \
         -v paperless-media:/usr/src/paperless/media \
@@ -77,6 +82,7 @@ if [[ $(command -v podman) ]];  then
 
     podman run --pod paperless -dt \
         --replace --label=app=paperless \
+        --label=dev.dozzle.group=paperless \
         --restart=unless-stopped \
         --name paperless-ai \
         -v paperless-ai:/app/data \
@@ -84,6 +90,7 @@ if [[ $(command -v podman) ]];  then
 
     podman run --pod paperless -dt \
         --replace --label=app=paperless \
+        --label=dev.dozzle.group=paperless \
         --restart=unless-stopped \
         --name stirlingpdf \
         -v stirling-training:/usr/share/tessdata \
