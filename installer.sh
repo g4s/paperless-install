@@ -20,18 +20,25 @@ if [[ $(command -v podman) ]];  then
         --publish 8003:3000 \
         --label=tsdproxy.enable=true
 
-    # create volumes
-    podman volume create paperless-redis
-    podman volume create paperless-database
-    podman volume create paperless-ai
-    podman volume create paperless-data
-    podman volume create paperless-media
-    podman volume create stirling-training
-    podman volume create stirling-conf
-    podman volume create stirling-custom
-    podman volume create stirling-logs
-    podman volume create sirling-pipelines
-    podman volume create docuseal-data
+    # create volumes, if not exists
+    volumes=(
+        paperless-redis
+        paperless-database
+        paperless-ai
+        paperless-data
+        paperless-media
+        stirling-training
+        stirling-conf
+        stirling-custom
+        stirling-logs
+        stirling-pipelines
+        docuseal-data
+        )
+    for volume in "${volumes[@]}"; do
+        if [[ $(podman volume exists "${volume}") -ne 0 ]]; then
+            podman volume create "${volume}"
+        fi
+    done
 
     read -rsp "PostgreSQL database password: " DB_PASSWORD
     echo "${DB_PASSWORD}" | podman secrete create paperless-postgres -
