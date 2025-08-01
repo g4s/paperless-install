@@ -86,11 +86,12 @@ if [[ $(command -v podman) ]];  then
         --label=app=paperless \
         --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP} \
         --name wenbserver \
-        -v paperless-data:/usr/src/paperless/data \
+        -v paperless-data:/usr/src/paperless/data: \
         -v paperless-media:/usr/src/paperless/media \
         -v "${PAPERLESS_CONSUME}":/usr/src/paperless/consume:Z \
         -v "${PAPERLESS_EXPORT}":/usr/src/paperless/export:Z \
         -v "${PAPERLESS_DATA}":/usr/src/paperless/data:Z \
+        -v "${PAPERLESS_SCRIPTS}":/usr/bin/scripts:Z
         -e PAPERLESS_REDIS=redis://broker:637 \
         -e PAPERLESS_DBHOST=db \
         -e PAPERLESS_DBUSER=paperless \
@@ -118,6 +119,7 @@ if [[ $(command -v podman) ]];  then
         -v paperless-ai:/app/data \
         docker.io/clusterzx/paperless-ai:latest
 
+    # adding stirlingPDF to techstack
     podman run --pod paperless -dt \
         --replace --label=app=paperless \
         --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP} \
@@ -128,9 +130,11 @@ if [[ $(command -v podman) ]];  then
         -v stirling-custom:/customFiles \
         -v stirling-logs:/logs \
         -v stirling-pipelines:/pipeline \
-        -e DISABLE_ADDITIONAL_FESTURES=true \
+        -e DISABLE_ADDITIONAL_FATURES=true \
         -e LANGS=de_DE \
         docker.stirlingpdf.com/stirlingtools/stirling-pdf:latest
+
+    # adding DocuSeal to techstack
 
     # open necessary ports in firewalld if running
     if [[ "$(firewall-cmd --state)" == "running" ]]; then
