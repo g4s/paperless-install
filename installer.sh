@@ -12,6 +12,8 @@ if [[ $(command -v podman) ]];  then
         --restart=unless-stopped \
         --label=app=paperless \
         --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP} \
+        --label=tsdproxy.enable \
+        --label=tsdproxy.name=dms \
         --network bridge \
         --name=paperless \
         --publish 8000:8000 \
