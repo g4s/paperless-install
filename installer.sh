@@ -1,6 +1,8 @@
 #! /bin/bash
 
 if [[ $(command -v podman) ]];  then
+    source /etc/sysconfig/paperless
+
     podman pod create --replace \
         --restart=unless-stopped \
         --label=app=paperless \
