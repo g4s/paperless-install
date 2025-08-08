@@ -110,7 +110,6 @@ if [[ $(command -v podman) ]];  then
         --label=app=paperless \
         --label=dev.dozzle.group="${PAPERLESS_DOZZLE_GROUP:-paperless}" \
         --name webserver \
-        -v paperless-data:/usr/src/paperless/data: \
         -v paperless-media:/usr/src/paperless/media \
         -v "${PAPERLESS_CONSUME:-$(pwd)/consume}":/usr/src/paperless/consume:Z \
         -v "${PAPERLESS_EXPORT:-$(pwd)/export}":/usr/src/paperless/export:Z \
