@@ -115,6 +115,7 @@ if [[ $(command -v podman) ]];  then
 
     podman run --pod paperless -dt \
         --replace --restart=unless-stopped \
+        --privileged \
         --label=app=paperless \
         --label=dev.dozzle.group="${PAPERLESS_DOZZLE_GROUP:-paperless}" \
         --name webserver \
@@ -123,7 +124,7 @@ if [[ $(command -v podman) ]];  then
         -v "${PAPERLESS_EXPORT:-$(pwd)/export}":/usr/src/paperless/export:Z \
         -v "${PAPERLESS_DATA:-$(pwd)/data}":/usr/src/paperless/data:Z \
         -v "${PAPERLESS_SCRIPTS:-/opt/paperless/scripts}":/usr/bin/scripts:Z \
-        -e PAPERLESS_REDIS=redis://broker:637 \
+        -e PAPERLESS_REDIS=redis://broker:6379 \
         -e PAPERLESS_DBHOST=db \
         -e PAPERLESS_DBUSER=paperless \
         --secret=paperless-postgres,type=env,target=PAPERLESS_DBPASS \
