@@ -105,9 +105,9 @@ if [[ $(command -v podman) ]];  then
         --name wenbserver \
         -v paperless-data:/usr/src/paperless/data: \
         -v paperless-media:/usr/src/paperless/media \
-        -v "${PAPERLESS_CONSUME}":/usr/src/paperless/consume:Z \
-        -v "${PAPERLESS_EXPORT}":/usr/src/paperless/export:Z \
-        -v "${PAPERLESS_DATA}":/usr/src/paperless/data:Z \
+        -v "${PAPERLESS_CONSUME:-$(pwd)/consume}":/usr/src/paperless/consume:Z \
+        -v "${PAPERLESS_EXPORT:-$(pwd)/export}":/usr/src/paperless/export:Z \
+        -v "${PAPERLESS_DATA:-$(pwd)/data}":/usr/src/paperless/data:Z \
         -v "${PAPERLESS_SCRIPTS:-/opt/paperless/scripts}":/usr/bin/scripts:Z \
         -e PAPERLESS_REDIS=redis://broker:637 \
         -e PAPERLESS_DBHOST=db \
@@ -120,7 +120,7 @@ if [[ $(command -v podman) ]];  then
         -e PAPERLESS_ADMIN_USER="${PAPERLESS_ADMIN_USER:-admin}" \
         -e PAPERLESS_AMDIN_PASSWORD="${PAPERLESS_ADMIN_PWD}" \
         -e PAPERLESS_ACCOUNT_ALLOW_SIGNUPS=False \
-        -e PAPERLESS_TIME_ZONE="${PAPERLESS_TIME_ZONE}" \
+        -e PAPERLESS_TIME_ZONE="${PAPERLESS_TIME_ZONE:-Europe/Berlin}" \
         -e USERMAP_UID="$(id -u)" \
         -e USERMAP_GID="$(id -g)" \
         -e PAPERLESS_TIKA_ENABLED=1 \
