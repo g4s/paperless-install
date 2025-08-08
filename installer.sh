@@ -16,7 +16,7 @@ if [[ $(command -v podman) ]];  then
         --label=tsdproxy.name=dms \
         --network bridge \
         --name=paperless \
-        --publish 8000:8000 \
+        --publish 8080:8000 \
         --publish 8001:3030 \
         --publish 8002:8080 \
         --publish 8003:3000 \
