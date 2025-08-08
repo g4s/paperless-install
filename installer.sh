@@ -95,7 +95,7 @@ if [[ $(command -v podman) ]];  then
         -v paperless-database:/var/lib/postgresql/data \
         -e POSTGRES_DB=paperless \
         -e POSTGRES_USER=paperless \
-        --secret=paperless-postgres-pw,type=env,target=POSTGRES_PASSWORD \
+        --secret=paperless-postgres,type=env,target=POSTGRES_PASSWORD \
         docker.io/library/postgres:17
 
     podman run --pod paperless -dt \
