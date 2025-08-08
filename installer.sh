@@ -42,12 +42,14 @@ if [[ $(command -v podman) ]];  then
         fi
     done
 
-    read -rsp "PostgreSQL database password: " DB_PASSWORD
-    echo "${DB_PASSWORD}" | podman secret create paperless-postgres -
+    if [[ $(podman secret exists paperless-postgres) -ne 0 ]]; then
+        read -rsp "PostgreSQL database password: " DB_PASSWORD
+        echo "${DB_PASSWORD}" | podman secret create paperless-postgres -
+    fi
 
-    if [[ $(podman secret exists paperless_secret_token) -ne 0 ]]; then
+    if [[ ! $(podman secret exists paperless_secret_token) == 1 ]]; then
         echo "create secret token for paperless with openSSL"
-        podman secrete create paperless_secret_token "$(openssl rand -base64 32)"
+        podman secret create paperless_secret_token "$(openssl rand -base64 32)"
         echo "created token paperless_secret_token"
     fi
 
@@ -101,8 +103,8 @@ if [[ $(command -v podman) ]];  then
     podman run --pod paperless -dt \
         --replace --restart=unless-stopped \
         --label=app=paperless \
-        --label=dev.dozzle.group="${PAPERLESS_DOZZLE_GROUP}" \
-        --name wenbserver \
+        --label=dev.dozzle.group="${PAPERLESS_DOZZLE_GROUP:-paperless}" \
+        --name webserver \
         -v paperless-data:/usr/src/paperless/data: \
         -v paperless-media:/usr/src/paperless/media \
         -v "${PAPERLESS_CONSUME:-$(pwd)/consume}":/usr/src/paperless/consume:Z \
@@ -156,7 +158,7 @@ if [[ $(command -v podman) ]];  then
     # https://www.docuseal.com/docs/configuring-saml-with-authentic
     podman run --pod paperless -dt \
         --replace --label=app=paperless \
-        --label=dev.dozzle.group="${PAPERLESS_DOZZLE_GROUP}" \
+        --label=dev.dozzle.group="${PAPERLESS_DOZZLE_GROUP:-paperless}" \
         --restart=unless-stopped \
         -v docuseal-data:/data \
         --name docuseal \
