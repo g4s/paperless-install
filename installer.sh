@@ -112,7 +112,7 @@ if [[ $(command -v podman) ]];  then
         -e PAPERLESS_REDIS=redis://broker:637 \
         -e PAPERLESS_DBHOST=db \
         -e PAPERLESS_DBUSER=paperless \
-        --secret=paperless-postgres-pw,type=env,target=PAPERLESS_DBPASS \
+        --secret=paperless-postgres,type=env,target=PAPERLESS_DBPASS \
         -e PAPERLESS_DBNAME=paperless \
         -e PAPERLESS_EMAIL_PARSE_DEFAULT_LAYOUT=2 \
         --secret=paperless_secret_token,type=env,target=PAPERLESS_SECRET_KEY \
