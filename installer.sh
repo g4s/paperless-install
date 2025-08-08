@@ -11,7 +11,7 @@ if [[ $(command -v podman) ]];  then
     podman pod create --replace \
         --restart=unless-stopped \
         --label=app=paperless \
-        --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP} \
+        --label=dev.dozzle.group="${PAPERLESS_DOZZLE_GROUP}" \
         --label=tsdproxy.enable \
         --label=tsdproxy.name=dms \
         --network bridge \
@@ -43,11 +43,11 @@ if [[ $(command -v podman) ]];  then
     done
 
     read -rsp "PostgreSQL database password: " DB_PASSWORD
-    echo "${DB_PASSWORD}" | podman secrete create paperless-postgres -
+    echo "${DB_PASSWORD}" | podman secret create paperless-postgres -
 
-    if [[ $(podman secret exists paperless_secret_token) -ne 0]]; then
+    if [[ $(podman secret exists paperless_secret_token) -ne 0 ]]; then
         echo "create secret token for paperless with openSSL"
-        podman secrete create paperless_secret_token $(openssl rand -base64 32)
+        podman secrete create paperless_secret_token "$(openssl rand -base64 32)"
         echo "created token paperless_secret_token"
     fi
 
@@ -67,7 +67,7 @@ if [[ $(command -v podman) ]];  then
 
     if [[ ! -z $PAPERLESS_SCRIPTS ]]; then
         PAPERLESS_SCRIPTS="$(pwd)/scripts"
-        mkdir -p $(pwd)/scripts
+        mkdir -p "$(pwd)/scripts"
     fi
 
     ####
@@ -75,14 +75,14 @@ if [[ $(command -v podman) ]];  then
     podman run --pod paperless -dt \
         --replace --restart=unless-stopped \
         --label=app=paperless \
-        --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP} \
+        --label=dev.dozzle.group="${PAPERLESS_DOZZLE_GROUP}" \
         --name tika \
         docker.io/apache/tika:latest
 
     podman run --pod paperless -dt \
         --replace --restart=unless-stopped \
         --label=app=paperless \
-        --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP} \
+        --label=dev.dozzle.group="${PAPERLESS_DOZZLE_GROUP}" \
         --name gotenberg \
         gotenberg docker.io/gotenberg/gotenberg:8.20 \
         gotenberg --api-port=3030
@@ -90,7 +90,7 @@ if [[ $(command -v podman) ]];  then
     podman run --pod paperless -dt \
         --replace --restart=unless-stopped \
         --label=app=paperless \
-        --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP} \
+        --label=dev.dozzle.group="${PAPERLESS_DOZZLE_GROUP}" \
         --name db \
         -v paperless-database:/var/lib/postgresql/data \
         -e POSTGRES_DB=paperless \
@@ -101,14 +101,14 @@ if [[ $(command -v podman) ]];  then
     podman run --pod paperless -dt \
         --replace --restart=unless-stopped \
         --label=app=paperless \
-        --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP} \
+        --label=dev.dozzle.group="${PAPERLESS_DOZZLE_GROUP}" \
         --name wenbserver \
         -v paperless-data:/usr/src/paperless/data: \
         -v paperless-media:/usr/src/paperless/media \
         -v "${PAPERLESS_CONSUME}":/usr/src/paperless/consume:Z \
         -v "${PAPERLESS_EXPORT}":/usr/src/paperless/export:Z \
         -v "${PAPERLESS_DATA}":/usr/src/paperless/data:Z \
-        -v "${PAPERLESS_SCRIPTS}":/usr/bin/scripts:Z
+        -v "${PAPERLESS_SCRIPTS}":/usr/bin/scripts:Z \
         -e PAPERLESS_REDIS=redis://broker:637 \
         -e PAPERLESS_DBHOST=db \
         -e PAPERLESS_DBUSER=paperless \
@@ -121,8 +121,8 @@ if [[ $(command -v podman) ]];  then
         -e PAPERLESS_AMDIN_PASSWORD="${PAPERLESS_ADMIN_PWD}" \
         -e PAPERLESS_ACCOUNT_ALLOW_SIGNUPS=False \
         -e PAPERLESS_TIME_ZONE="${PAPERLESS_TIME_ZONE}" \
-        -e USERMAP_UID=$(id -u) \
-        -e USERMAP_GID=$(id -g) \ 
+        -e USERMAP_UID="$(id -u)" \
+        -e USERMAP_GID="$(id -g)" \
         -e PAPERLESS_TIKA_ENABLED=1 \
         -e PAPERLESS_TIKA_GOTENBERG_ENDPOINT=http://gotenberg:3030 \
         -e PAPERLESS_TIKA_ENDPOINT=http://tika:9998 \
@@ -130,7 +130,7 @@ if [[ $(command -v podman) ]];  then
 
     podman run --pod paperless -dt \
         --replace --label=app=paperless \
-        --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP} \
+        --label=dev.dozzle.group="${PAPERLESS_DOZZLE_GROUP}" \
         --restart=unless-stopped \
         --name paperless-ai \
         -v paperless-ai:/app/data \
@@ -139,7 +139,7 @@ if [[ $(command -v podman) ]];  then
     # adding stirlingPDF to techstack
     podman run --pod paperless -dt \
         --replace --label=app=paperless \
-        --label=dev.dozzle.group=${PAPERLESS_DOZZLE_GROUP} \
+        --label=dev.dozzle.group="${PAPERLESS_DOZZLE_GROUP}" \
         --restart=unless-stopped \
         --name stirlingpdf \
         -v stirling-training:/usr/share/tessdata \
