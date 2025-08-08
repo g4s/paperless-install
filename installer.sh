@@ -108,7 +108,7 @@ if [[ $(command -v podman) ]];  then
     podman run --pod paperless -dt \
         --replace --restart=unless-stopped \
         --label=app=paperless \
-        --label==dev.dozzle.group="${PAPERLESS_DOZZLE_GROUP:-paperless}" \
+        --label=dev.dozzle.group="${PAPERLESS_DOZZLE_GROUP:-paperless}" \
         --name broker \
         -v paperless-redi:/data:Z \
         docker.io/library/redis:8
