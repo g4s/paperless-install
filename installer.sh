@@ -49,8 +49,13 @@ if [[ $(command -v podman) ]];  then
 
     if [[ ! $(podman secret exists paperless_secret_token) == 1 ]]; then
         echo "create secret token for paperless with openSSL"
-        podman secret create paperless_secret_token "$(openssl rand -base64 32)"
-        echo "created token paperless_secret_token"
+        echo "$(openssl rand -base64 32)" | podman secret create paperless_secret_token -
+
+        if [[ $? == 0 ]]; then
+            echo "created token paperless_secret_token"
+        else
+            echo "paperless token could not be created"
+        fi
     fi
 
     read -rsp "Enter paperless-ngx password: " PAPERLESS_ADMIN_PWD
