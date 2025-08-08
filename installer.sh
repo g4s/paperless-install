@@ -108,7 +108,7 @@ if [[ $(command -v podman) ]];  then
         -v "${PAPERLESS_CONSUME}":/usr/src/paperless/consume:Z \
         -v "${PAPERLESS_EXPORT}":/usr/src/paperless/export:Z \
         -v "${PAPERLESS_DATA}":/usr/src/paperless/data:Z \
-        -v "${PAPERLESS_SCRIPTS}":/usr/bin/scripts:Z \
+        -v "${PAPERLESS_SCRIPTS:-/opt/paperless/scripts}":/usr/bin/scripts:Z \
         -e PAPERLESS_REDIS=redis://broker:637 \
         -e PAPERLESS_DBHOST=db \
         -e PAPERLESS_DBUSER=paperless \
