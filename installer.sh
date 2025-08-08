@@ -84,7 +84,7 @@ if [[ $(command -v podman) ]];  then
         --label=app=paperless \
         --label=dev.dozzle.group="${PAPERLESS_DOZZLE_GROUP}" \
         --name gotenberg \
-        gotenberg docker.io/gotenberg/gotenberg:8.20 \
+        docker.io/gotenberg/gotenberg:8.20 \
         gotenberg --api-port=3030
 
     podman run --pod paperless -dt \
@@ -116,7 +116,7 @@ if [[ $(command -v podman) ]];  then
         -e PAPERLESS_DBNAME=paperless \
         -e PAPERLESS_EMAIL_PARSE_DEFAULT_LAYOUT=2 \
         --secret=paperless_secret_token,type=env,target=PAPERLESS_SECRET_KEY \
-        -e PAPERLESS_URL=${PAPERLESS_URL:-"localhost"} \
+        -e PAPERLESS_URL="${PAPERLESS_URL:-localhost}" \
         -e PAPERLESS_ADMIN_USER="${PAPERLESS_ADMIN_USER:-admin}" \
         -e PAPERLESS_AMDIN_PASSWORD="${PAPERLESS_ADMIN_PWD}" \
         -e PAPERLESS_ACCOUNT_ALLOW_SIGNUPS=False \
