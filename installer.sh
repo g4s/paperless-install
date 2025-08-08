@@ -116,7 +116,7 @@ if [[ $(command -v podman) ]];  then
         -e PAPERLESS_DBNAME=paperless \
         -e PAPERLESS_EMAIL_PARSE_DEFAULT_LAYOUT=2 \
         --secret=paperless_secret_token,type=env,target=PAPERLESS_SECRET_KEY \
-        -e PAPERLESS_URL=${PAPERLESS_URL:-""} \
+        -e PAPERLESS_URL=${PAPERLESS_URL:-"localhost"} \
         -e PAPERLESS_ADMIN_USER="${PAPERLESS_ADMIN_USER:-admin}" \
         -e PAPERLESS_AMDIN_PASSWORD="${PAPERLESS_ADMIN_PWD}" \
         -e PAPERLESS_ACCOUNT_ALLOW_SIGNUPS=False \
