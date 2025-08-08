@@ -118,7 +118,7 @@ if [[ $(command -v podman) ]];  then
         --secret=paperless_secret_token,type=env,target=PAPERLESS_SECRET_KEY \
         -e PAPERLESS_URL="${PAPERLESS_URL:-localhost}" \
         -e PAPERLESS_ADMIN_USER="${PAPERLESS_ADMIN_USER:-admin}" \
-        -e PAPERLESS_AMDIN_PASSWORD="${PAPERLESS_ADMIN_PWD}" \
+        -e PAPERLESS_AMDIN_PASSWORD="${PAPERLESS_ADMIN_PWD:-paperless}" \
         -e PAPERLESS_ACCOUNT_ALLOW_SIGNUPS=False \
         -e PAPERLESS_TIME_ZONE="${PAPERLESS_TIME_ZONE:-Europe/Berlin}" \
         -e USERMAP_UID="$(id -u)" \
